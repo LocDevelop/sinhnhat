@@ -1,0 +1,48 @@
+/* Interaction surfaces stay independent from the animated canvas. */
+#love-atmosphere{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+.scene-space{cursor:default;user-select:none;-webkit-user-select:none}
+.particle-touch{position:absolute;inset:0 20% 66px;border:0;background:transparent;border-radius:45%;cursor:grab;touch-action:none;-webkit-touch-callout:none}
+.particle-touch:active,.particle-touch.holding{cursor:grabbing}
+.particle-touch:focus-visible{outline:1px dashed #e9a6cc88;outline-offset:0}
+.scene-caption{gap:9px}.interaction-hint{font-size:12px}
+.charge-meter{height:2px;width:90px;border-radius:2px;background:#e8a5c515;overflow:hidden;margin:1px auto 0}
+#charge-fill{display:block;width:100%;height:100%;transform:scaleX(0);transform-origin:center;background:#ffd3eb;box-shadow:0 0 10px #ff81bf}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#balloon-sky{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:1;visibility:hidden;transition:opacity .8s}
+body.is-open #balloon-sky{visibility:visible}
+#balloon-sky.concealed,body.wishing #balloon-sky{opacity:0}
+.memory-flight{--card:146px;position:absolute;left:calc(12px + var(--lane)*(100% - var(--card) - 24px));top:0;width:var(--card);animation:memory-flight var(--duration) linear var(--delay) infinite;will-change:transform;opacity:.82}
+.memory-sway{animation:memory-sway 5s ease-in-out infinite alternate;transform-origin:50% 0;filter:drop-shadow(0 6px 18px #09061080)}
+.balloon-cluster{position:relative;height:190px;width:100%}
+.balloon{position:absolute;width:72px;height:88px;border-radius:52% 52% 47% 47%;left:36px;top:0;background:radial-gradient(ellipse at 28% 22%,#fff9 0,transparent 23%),radial-gradient(ellipse at 40% 30%,hsl(var(--hue) 76% 76%),hsl(var(--hue) 64% 48%) 75%,hsl(var(--hue) 60% 38%));border:1px solid #ffdced44;box-shadow:inset -6px -5px 12px #49133040,0 0 30px #e374a312}
+.balloon::after{content:'';position:absolute;bottom:-6px;left:calc(50% - 4px);width:8px;height:8px;background:hsl(var(--hue) 60% 56%);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.balloon-0{left:5px;top:23px;transform:rotate(-15deg);filter:brightness(.92)}
+.balloon-1{left:67px;top:26px;transform:rotate(14deg);filter:hue-rotate(16deg)}
+.balloon-2{z-index:1}
+.balloon-0::before,.balloon-1::before,.balloon-2::before{content:'';position:absolute;top:100%;left:50%;height:87px;width:1px;background:linear-gradient(#f6c1dc99,#f6c1dc55);transform-origin:top}
+.balloon-0::before{transform:rotate(-5deg);height:78px}.balloon-1::before{transform:rotate(5deg);height:78px}.balloon-2::before{height:102px}
+.memory-flight figure{margin:0;background:#ead8df;padding:7px 7px 12px;border:1px solid #fff8;border-radius:3px;box-shadow:0 6px 28px #09051088;transform:rotate(-3deg)}
+.memory-flight img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:1px}
+.memory-flight figcaption{font:italic 12px/1.5 var(--serif);color:#72475c;text-align:center;padding-top:9px;white-space:nowrap}
+#balloon-sky.paused *,#balloon-sky.concealed *,body:not(.is-open) #balloon-sky *,body.wishing #balloon-sky *,body.page-hidden #balloon-sky *{animation-play-state:paused!important}
+@keyframes memory-flight{0%{transform:translateY(calc(100svh + 30px));opacity:0}7%{opacity:.82}90%{opacity:.82}100%{transform:translateY(-510px);opacity:0}}
+@keyframes memory-sway{from{transform:translateX(-8px) rotate(-4deg)}to{transform:translateX(8px) rotate(4deg)}}
+.memory-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;position:relative;z-index:2}
+.memory-actions button{background:#211329;border:1px solid #e5a5d139;border-radius:24px;padding:11px 16px;font-size:13px;color:#e4bbd4}
+.memory-actions button[aria-pressed=true]{border-color:#e5a5d1aa}
+.photo-window{mask-image:none;overflow-x:auto;margin:25px 0 0;padding:10px 0 15px;scrollbar-width:thin;scrollbar-color:#76546a transparent}
+.photo-track{width:max-content;gap:16px;animation:none!important}
+.photo-track figure,.photo-track figure:nth-child(even){width:135px;padding:6px 6px 11px;transform:none;background:#211728}
+.photo-track img{width:121px;height:145px}
+.photo-track figcaption{font-size:12px;max-width:121px;white-space:normal}
+.wish-journey{inset:0;max-width:none;max-height:none;width:100%;height:100%;margin:0;padding:0;border:0;border-radius:0;background:radial-gradient(ellipse at 50% 30%,#24132de8,#090610f2);box-shadow:none;overflow:hidden}
+.wish-journey::backdrop{background:#08050ddb;backdrop-filter:blur(9px)}
+#wish-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.journey-close{position:absolute;right:25px;top:24px;z-index:2;background:#29142b99;border:1px solid #f2b4d343;border-radius:24px;padding:12px 18px;color:#f6cce1;font-size:13px}
+.wish-story{position:absolute;left:20px;right:20px;bottom:12%;text-align:center;pointer-events:none}
+.wish-story .eyebrow{font-size:11px;letter-spacing:3px;color:#bd91b1}
+.wish-story h2{font:italic 400 clamp(28px,4vw,47px)/1.4 var(--serif);color:#ffe0ef;margin:18px 0 12px;text-shadow:0 0 30px #da80b530}
+.wish-story p{font-size:14px;color:#d0b1c6;line-height:1.9;margin:0 auto;max-width:570px}
+@media(max-width:650px){.particle-touch{inset:0 9% 78px}.scene-caption{bottom:0;padding:0 22px}.interaction-hint{font-size:11px;line-height:1.7}.memory-flight{--card:96px;opacity:.67}.memory-sway{transform-origin:50% 0}.balloon-cluster{height:140px;transform:scale(.7);transform-origin:center bottom;width:146px;margin-left:-25px}.memory-flight figure{padding:5px 5px 8px}.memory-flight figcaption{font-size:9px;padding-top:6px}.memory-actions button{font-size:12px}.wish-story{bottom:10%}.wish-story h2{font-size:29px}.wish-story p{font-size:13px}.journey-close{top:18px;right:16px;font-size:12px}.wish-story .eyebrow{font-size:9px;letter-spacing:2px}}
+@media(prefers-reduced-motion:reduce){#balloon-sky{display:none}.memory-actions{display:none}.particle-touch{touch-action:pan-y}.wish-journey{background:#150c1d}.photo-window{overflow-x:auto}.memory-flight,.memory-sway{animation:none!important}}
+@media(max-height:550px){.wish-story{bottom:5%}.wish-story h2{font-size:25px;margin:8px 0}.wish-story .eyebrow{display:none}.wish-story p{font-size:12px}}
