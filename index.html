@@ -4,13 +4,26 @@
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#090610"><meta name="description" content="Một vũ trụ nhỏ, một lời chúc lớn. Chúc mừng sinh nhật TSAI PEI LIN.">
   <title>Gửi TSAI PEI LIN · Happy Birthday</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="effects.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="effects.css"><link rel="stylesheet" href="music.css"><link rel="stylesheet" href="festive.css">
 </head>
 <body>
   <canvas id="universe" aria-hidden="true"></canvas>
   <div class="grain" aria-hidden="true"></div>
   <div id="balloon-sky" aria-hidden="true"></div>
-  <header><a class="wordmark" href="./" aria-label="Trở về màn mở quà"><span class="spark">✧</span><span class="wordmark-dot">.</span></a><span class="edition">MADE FOR YOU · 04 OCT</span><button id="music" class="icon-button" aria-pressed="false" title="Bật nhạc">♫ <span>Bật nhạc</span></button></header>
+  <header><a class="wordmark" href="./" aria-label="Trở về màn mở quà"><span class="spark">✧</span> a little universe<span class="wordmark-dot">.</span></a><span class="edition">MADE FOR YOU · 04 OCT</span><button id="music" class="icon-button" aria-expanded="false" aria-controls="music-player" title="Mở trình phát nhạc">♫ <span>Nhạc</span></button></header>
+  <aside id="music-player" class="music-player" hidden aria-label="Trình phát nhạc sinh nhật">
+    <div class="music-topline"><span class="music-kicker">BIRTHDAY PLAYLIST</span><button id="close-player" aria-label="Đóng trình phát nhạc">×</button></div>
+    <div class="now-playing"><span id="music-art" aria-hidden="true">♪</span><div><span id="track-state">Giai điệu ánh sao</span><strong id="track-title">Nhạc nền mặc định</strong></div></div>
+    <div class="music-progress"><span id="current-time">0:00</span><input id="track-progress" type="range" min="0" max="1000" value="0" aria-label="Vị trí bài hát"><span id="duration">—:—</span></div>
+    <div class="music-controls">
+      <button id="shuffle" aria-pressed="false" title="Trộn bài">⤨</button><button id="previous-track" aria-label="Bài trước">│◀</button><button id="play-track" class="play-track" aria-label="Phát nhạc">▶</button><button id="next-track" aria-label="Bài tiếp theo">▶│</button><button id="repeat" aria-label="Chế độ lặp" data-mode="all">↻ <small>Tất cả</small></button>
+    </div>
+    <div class="volume-row"><span aria-hidden="true">♩</span><input id="volume" type="range" min="0" max="1" value="0.72" step="0.01" aria-label="Âm lượng"><span aria-hidden="true">♫</span></div>
+    <label class="song-picker" for="songs">＋ Chọn các bài hát yêu thích<input id="songs" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.aac,.flac" multiple></label>
+    <p class="music-help">Chọn nhiều bài để trang tự chuyển khi phát hết. Nhạc từ máy chỉ dùng trong lần mở trang này.</p>
+    <div id="playlist" class="playlist" role="list" aria-label="Danh sách phát"></div>
+    <audio id="audio-player" preload="metadata"></audio>
+  </aside>
   <main>
     <section id="gate" class="gate" aria-labelledby="gate-title">
       <div class="eyebrow"><span></span> MỘT ĐIỀU ĐẶC BIỆT ĐANG CHỜ BẠN</div>
@@ -28,9 +41,10 @@
     </section>
 
     <section id="celebration" class="celebration" hidden aria-labelledby="birthday-title">
-      <div class="birthday-heading"><div class="eyebrow">04 THÁNG 10 · YOUR DAY, YOUR UNIVERSE</div><p class="script-title">Happy Birthday</p><h1 id="birthday-title">TSAI PEI LIN</h1><p class="wish-intro">Thật may vì thế giới này có bạn.</p></div>
+      <div class="birthday-heading"><div class="heading-halo" aria-hidden="true"></div><span class="heading-spark hs-one" aria-hidden="true">✦</span><span class="heading-spark hs-two" aria-hidden="true">✧</span><span class="heading-spark hs-three" aria-hidden="true">✧</span><span class="heading-spark hs-four" aria-hidden="true">✦</span><div class="eyebrow">04 THÁNG 10 · YOUR DAY, YOUR UNIVERSE</div><p class="script-title">Happy Birthday</p><h1 id="birthday-title">TSAI PEI LIN</h1><p class="wish-intro">Thật may vì thế giới này có bạn.</p><div class="birthday-ribbon" aria-hidden="true">✧ MAKE TODAY A LITTLE MORE MAGICAL ✧</div></div>
       <div class="scene-space"><span class="orbit-label">A THOUSAND LITTLE LIGHTS,<br>ONE VERY SPECIAL YOU.</span><button id="particle-touch" class="particle-touch" aria-label="Giữ để hình phồng lên, thả để vỡ thành ánh sáng. Dùng phím cách hoặc Enter trên bàn phím." aria-describedby="touch-hint"></button><div class="scene-caption"><span id="scene-label">Một trái tim, ngàn điều muốn nói.</span><span id="touch-hint" class="interaction-hint">Giữ để gom yêu thương · Thả để bung ánh sáng · Kéo để xoay</span><span class="charge-meter" aria-hidden="true"><span id="charge-fill"></span></span><span id="charge-status" class="sr-only" role="status"></span></div></div>
       <div class="scene-controls" role="group" aria-label="Chọn hiệu ứng"><button class="scene-button active" data-shape="heart" aria-pressed="true">♡ <span>Trái tim</span></button><button class="scene-button" data-shape="cake" aria-pressed="false">♧ <span>Bánh sinh nhật</span></button><button id="wish-button" class="wish-button">✧ Ước một điều</button></div>
+      <div class="party-controls"><button id="party-burst" type="button"><span aria-hidden="true">✺</span> Bùng nổ sinh nhật</button><button id="party-mood" type="button" aria-pressed="true">Không khí: Sôi động</button><span id="party-status" class="sr-only" role="status"></span></div>
       <div class="letter"><span class="letter-star" aria-hidden="true">✦</span><p>Chúc bạn một tuổi mới <em>rực rỡ theo cách của riêng mình.</em><br>Đủ bình yên để mỉm cười, đủ can đảm để theo đuổi những điều yêu thích,<br class="desktop-break"> và luôn được bao quanh bởi những yêu thương thật lòng.</p><span class="signature">Tất cả những điều đẹp nhất, gửi đến bạn ♡</span></div>
       <section class="memories" aria-labelledby="memories-title"><div class="memories-head"><div><div class="eyebrow">LET YOUR MEMORIES FLY</div><h2 id="memories-title">Thả kỷ niệm <em>lên bầu trời.</em></h2></div><label class="photo-button" for="photos">＋ Thêm ảnh kỷ niệm<input id="photos" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple></label></div><p id="photo-help">Mỗi tấm ảnh là một kỷ niệm được bóng bay mang lên cao, rồi lại trở về trong vòng bay tiếp theo. Ảnh chọn từ máy chỉ hiển thị trong lần mở trang này.</p><div class="memory-actions" id="memory-actions" hidden><button id="pause-photos" aria-pressed="false">Ⅱ Tạm dừng bóng bay</button><button id="hide-photos" aria-pressed="false">Ẩn bóng bay</button></div><p id="photo-status" role="status"></p><div id="photo-window" class="photo-window" hidden><div id="photo-track" class="photo-track"></div></div></section>
       <footer><span>FOR TSAI PEI LIN, WITH LOVE</span><button id="replay">Xem lại từ đầu ↺</button><span>✧ 04.10.2004</span></footer>
@@ -39,6 +53,6 @@
   <dialog id="wish-dialog"><button id="close-wish" class="close-dialog" aria-label="Đóng lời chúc">×</button><div class="eyebrow">MAKE A WISH</div><span class="dialog-star" aria-hidden="true">✧</span><h2>Nhắm mắt một chút.<br><em>Ước một điều nhé.</em></h2><p>Mong điều bạn vừa ước sẽ tìm được đường đến bên bạn.</p><button id="send-wish" class="primary">Gửi điều ước lên bầu trời ✧</button></dialog>
   <dialog id="wish-journey" class="wish-journey" aria-label="Hành trình điều ước"><canvas id="wish-canvas" aria-hidden="true"></canvas><button id="skip-journey" class="journey-close">Bỏ qua ✕</button><div class="wish-story"><div class="eyebrow">A WISH WRITTEN IN THE STARS</div><h2 id="wish-line" role="status">Gom những điều dịu dàng…</h2><p id="wish-detail">Một điều ước nhỏ, cả bầu trời lắng nghe.</p></div></dialog>
   <div id="toast" role="status"></div>
-  <script src="config.js"></script><script src="motion.js"></script><script src="app.js"></script><script src="effects.js"></script>
+  <script src="config.js"></script><script src="motion.js"></script><script src="app.js"></script><script src="effects.js"></script><script src="music.js"></script><script src="festive.js"></script>
 </body>
 </html>
