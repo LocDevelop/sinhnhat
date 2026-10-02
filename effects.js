@@ -45,7 +45,7 @@
   $('#replay').addEventListener('click',()=>{cancel();motion.reset();if(wish)endWish();document.body.classList.remove('is-open');});
   document.addEventListener('birthday-open',()=>document.body.classList.add('is-open'));
 
-  const stages=[['Gom những điều dịu dàng…','Một điều ước nhỏ, cả bầu trời lắng nghe.'],['Điều ước đang bay lên.','Mang theo tất cả những yêu thương dành cho bạn.'],['Bầu trời đã giữ điều ước của bạn.','Mong những điều tốt đẹp sẽ đến với '+window.BIRTHDAY_CONFIG.name+' ♡']];
+  const stages=[['Gom những điều dịu dàng…','Một điều ước nhỏ, cả bầu trời lắng nghe.'],['Điều ước đang bay lên.','Mang theo tất cả những yêu thương dành cho em.'],['Bầu trời đã giữ điều ước của em.','Mong những điều tốt đẹp sẽ đến với '+window.BIRTHDAY_CONFIG.name+' ♡']];
   function stage(n){if(!wish||wish.stage===n)return;wish.stage=n;$('#wish-line').textContent=stages[n][0];$('#wish-detail').textContent=stages[n][1];$('#skip-journey').textContent=n===2?'Mang yêu thương trở về ♡':'Bỏ qua ✕';}
   $('#send-wish').addEventListener('click',()=>{if(wish)return;$('#wish-dialog').close();cancel();wish={t:reduced?6:0,stage:-1,dust:Array.from({length:w<650?90:150},()=>({a:rand(0,7),r:rand(20,250),seed:Math.random()}))};journey.showModal();document.body.classList.add('wishing');stage(reduced?2:0);schedule();});
   function endWish(){wish=null;wc.clearRect(0,0,w,h);document.body.classList.remove('wishing');if(journey.open)journey.close();$('#wish-button').focus({preventScroll:true});}
